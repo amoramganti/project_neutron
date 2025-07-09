@@ -11,9 +11,9 @@ public class VFXVoiceReactorMic : MonoBehaviour
 
     [Header("Reactivity Settings")]
     [Tooltip("How sensitive the amplitude reaction is.")]
-    public float amplitudeMultiplier = 100.0f;
+    public float amplitudeMultiplier = 50.0f;
     [Tooltip("How quickly the effect smoothes out and returns to baseline.")]
-    public float smoothingSpeed = 50.0f;
+    public float smoothingSpeed = 25.0f;
     [Tooltip("The color of the orb when silent.")]
     public Color silentColor = Color.white;
     [Tooltip("The color of the orb when speaking.")]
@@ -80,8 +80,8 @@ public class VFXVoiceReactorMic : MonoBehaviour
         // --- Apply the analysis to the VFX Graph ---
 
         // A. Control Size/Intensity with Amplitude
-        vfxGraph.SetFloat("Size", 2.0f + smoothedAmplitude * 0.5f);
-        vfxGraph.SetFloat("TurbulenceIntensity", 5.0f + smoothedAmplitude * 20.0f);
+        vfxGraph.SetFloat("Size", 0.7f + smoothedAmplitude * 1.5f);
+        // vfxGraph.SetFloat("TurbulenceIntensity", 5.0f + smoothedAmplitude * 20.0f);
 
         // B. Control Color with Amplitude
         Color voiceColor = Color.Lerp(silentColor, speakingColor, smoothedAmplitude);
