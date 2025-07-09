@@ -14,10 +14,14 @@ public class VFXVoiceReactorMic : MonoBehaviour
     public float amplitudeMultiplier = 50.0f;
     [Tooltip("How quickly the effect smoothes out and returns to baseline.")]
     public float smoothingSpeed = 25.0f;
+    [Tooltip("The maximum size the effect can reach.")]
+    public float maxSize = 2.5f;
     [Tooltip("The color of the orb when silent.")]
-    public Color silentColor = Color.white;
+    public Color silentColor = new Color(0xFF/255f, 0xFF/255f, 0xFF/255f); // #FFFFFF
     [Tooltip("The color of the orb when speaking.")]
     public Color speakingColor = Color.cyan;
+    // public Color speakingColor = new Color(0xFF/255f, 0xFF/255f, 0xFF/255f); // #FFFFFF
+
     
     // --- Internal Data ---
     private float[] audioSamples;
@@ -80,7 +84,8 @@ public class VFXVoiceReactorMic : MonoBehaviour
         // --- Apply the analysis to the VFX Graph ---
 
         // A. Control Size/Intensity with Amplitude
-        vfxGraph.SetFloat("Size", 0.7f + smoothedAmplitude * 1.5f);
+        float calculatedSize = 0.7f + smoothedAmplitude * 1.5f;
+        vfxGraph.SetFloat("Size", Mathf.Min(calculatedSize, maxSize));
         // vfxGraph.SetFloat("TurbulenceIntensity", 5.0f + smoothedAmplitude * 20.0f);
 
         // B. Control Color with Amplitude
